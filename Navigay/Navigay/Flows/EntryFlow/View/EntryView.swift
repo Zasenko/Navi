@@ -8,14 +8,27 @@
 import SwiftUI
 
 struct EntryView: View {
-
+    
+    //MARK: - Prorepties
+    
+    @StateObject var viewModel = EntryViewModel()
+    @Binding var isUserLoggenIn: Bool?
+    
+    //MARK: - Body
+    
     var body: some View {
-        LogoAnimationView()
+        VStack {
+            LogoAnimationView(isAnimationFinished: $viewModel.isLogoAnimationFinished)
+            if (viewModel.isLogoAnimationFinished && isUserLoggenIn != nil) {
+                Spacer()
+                Color.red
+            }
+        }
     }
 }
 
 struct EntryView_Previews: PreviewProvider {
     static var previews: some View {
-        EntryView()
+        EntryView(isUserLoggenIn: .constant(false))
     }
 }

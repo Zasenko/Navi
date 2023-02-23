@@ -9,12 +9,13 @@ import SwiftUI
 
 @main
 struct NavigayApp: App {
-    let persistenceController = PersistenceController.shared
-
+    
+    @StateObject var coreDataManager = CoreDataManager()
+    @StateObject var userViewModel = CoreDataManager()
+    
     var body: some Scene {
         WindowGroup {
-            EntryView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            EntryView(isUserLoggenIn: $coreDataManager.isUserLoggedIn)
         }
     }
 }
